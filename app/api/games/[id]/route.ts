@@ -11,8 +11,8 @@ export async function PUT(req: Request, { params }: any) {
 }
 
 export async function GET(req: Request, { params }: any) {
-  const { key } = params;
+  const { id } = params;
   await connectMongoDB();
-  const game = await Game.findOne({ key: key });
+  const game = await Game.findOne({ _id: id });
   return NextResponse.json({ game }, { status: 200 });
 }

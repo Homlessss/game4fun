@@ -3,9 +3,9 @@ import Game from "@/models/game";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { name, srcGame, srcThumbnail, key } = await req.json();
+  const { name, srcGame, srcThumbnail, id } = await req.json();
   await connectMongoDB();
-  await Game.create({ name, srcGame, srcThumbnail, key });
+  await Game.create({ name, srcGame, srcThumbnail, id });
   return NextResponse.json({ message: "Success" }, { status: 201 });
 }
 
@@ -16,9 +16,9 @@ export async function GET() {
 }
 
 export async function DELETE(req: NextRequest) {
-  const key = req.nextUrl.searchParams.get("key");
-  console.log(key);
+  const id = req.nextUrl.searchParams.get("id");
+  console.log(id);
   await connectMongoDB();
-  await Game.findOneAndDelete({key: key});
+  await Game.findByIdAndDelete(id);
   return NextResponse.json({ message: "Delete" }, { status: 200 });
 }
