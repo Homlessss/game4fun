@@ -17,5 +17,5 @@ export default async function PlayGame({ params }: any) {
   const { game } = await getGameById(id);
   const { srcGame } = game;
 
-  return <iframe width={800} height={800} src={srcGame}></iframe>;
+  return <iframe width={1000} height={1000} src={srcGame}></iframe>;
 }
