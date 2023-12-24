@@ -1,5 +1,6 @@
 "use client";
 
+import getURL from "@/utils/getURL";
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash } from "react-icons/hi";
 
@@ -9,7 +10,11 @@ export default function RemoveBtn(id: any) {
     const confirmed = confirm("Are you sure?");
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/games?id=${id.id}`, {
+      let urlFetch =
+        `http://localhost:3000/api/games?id=${id.id}` ||
+        getURL(`/api/games?id=${id.id}`);
+
+      const res = await fetch(urlFetch, {
         method: "DELETE",
       });
 
@@ -18,7 +23,11 @@ export default function RemoveBtn(id: any) {
   };
 
   return (
-    <button onClick={removeGame} title="delete" className="text-red-400 flex justify-center">
+    <button
+      onClick={removeGame}
+      title="delete"
+      className="text-red-400 flex justify-center"
+    >
       <HiOutlineTrash size={24} />
     </button>
   );

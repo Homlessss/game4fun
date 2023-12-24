@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import getURL from "@/utils/getURL";
 
 export default function EditGameForm({
   id,
@@ -22,7 +23,10 @@ export default function EditGameForm({
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/games/${id}`, {
+      let urlFetch =
+        `http://localhost:3000/api/games/${id}` || getURL(`/api/games/${id}`);
+
+      const res = await fetch(urlFetch, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +40,6 @@ export default function EditGameForm({
         router.push("/games");
         router.refresh();
       }
-
     } catch (error) {
       console.log(error);
     }

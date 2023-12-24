@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import getURL from "@/utils/getURL";
 
 export default function AddGame() {
   const [name, setName] = useState("");
@@ -21,7 +22,9 @@ export default function AddGame() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/games", {
+      let urlFetch = `http://localhost:3000/api/games` || getURL(`/api/games`);
+
+      const res = await fetch(urlFetch, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

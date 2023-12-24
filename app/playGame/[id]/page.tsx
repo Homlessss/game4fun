@@ -1,9 +1,16 @@
+import getURL from "@/utils/getURL";
+
 export default async function PlayGame({ params }: any) {
   const getGameById = async (id: any) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/games/${id}`, {
+      let urlFetch =
+        `http://localhost:3000/api/games/${id}` || getURL(`/api/games/${id}`);
+
+      const res = await fetch(urlFetch, {
         cache: "no-store",
       });
+
+      // console.log(getURL(`/api/games/${id}`));
 
       if (!res.ok) throw new Error("Failed!");
 

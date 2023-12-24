@@ -2,10 +2,13 @@
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
+import getURL from "@/utils/getURL";
 
 const getGames = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/games", {
+    let urlFetch = `http://localhost:3000/api/games/` || getURL(`/api/games`);
+
+    const res = await fetch(urlFetch, {
       cache: "no-store",
     });
 
@@ -23,7 +26,10 @@ export default async function GamesList() {
   return (
     <div className="col-start-1 col-end-7 my-1">
       {games.map((g: any) => (
-        <div className="p-4 border border-slate-300 my-3 grid grid-col-6 gap-5" key={g.key}>
+        <div
+          className="p-4 border border-slate-300 my-3 grid grid-col-6 gap-5"
+          key={g.key}
+        >
           <div>
             <h1>{g.name}</h1>
             <h3>{g.srcGame}</h3>

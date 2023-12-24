@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import getURL from "@/utils/getURL";
 
 const getGames = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/games", {
+    let urlFetch = `http://localhost:3000/api/games` || getURL(`/api/games`);
+
+    const res = await fetch(urlFetch, {
       cache: "no-store",
     });
 
